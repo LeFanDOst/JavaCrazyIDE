@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="CrazyIDE" default="main" basedir=".">
+		<description>
+			Build file of CrazyIDE, developed in Java version 12.
+		</description>
+		
+		<property name="src" value="${basedir}/src"/>
+		<property name="package" value="${src}/CIDEPack"/>
+		<property name="build" value="${basedir}/class"/>
+		<property name="exec" value="${basedir}/jar"/>
+		
+		<target name="initialisation" description="Build tree view.">
+			<mkdir dir="${build}"/>
+		</target>
+		<target name="compile" depends="initialisation" description="Source code compilation.">
+			<javac srcdir="${package}" destdir="${build}" debug="on" deprecation="on" optimize="off">
+			</javac>
+			
+			<javac srcdir="${src}" destdir="${build}" debug="on" deprecation="on" optimize="off">
+				<include name="main.java"/>
+			</javac>
+		</target>
+		<target name="jar" depends="compile" description="Create JAR archive.">
+			<jar jarfile="${exec}/CrazyIDE.jar" basedir="${build}"><!-- includes="META-INF/**">!-->
+				<manifest>
+					<attribute name="MAIN-CLASS" value="main"/>
+				</manifest>
+			</jar>
+		</target>
+		<target name="clean" description="Delete CLASS files.">
+			<delete includeEmptyDirs="true">
+				<fileset dir="${build}"/>
+			</delete>
+		</target>
+		<target name="mrproper" description="Delete JAR archive.">
+		</target>
+		<target name="run" description="Launch CrazyIDE.">
+			<java jar="${exec}/CrazyIDE.jar" fork="true"/>
+		</target>
+	</project>
