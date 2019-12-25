@@ -5,7 +5,8 @@
 		</description>
 		
 		<property name="src" value="${basedir}/src"/>
-		<property name="package" value="${src}/CIDEPack"/>
+		<property name="packageCIDE" value="${src}/CIDEPack"/>
+		<property name="packageXML" value="${packageCIDE}/XMLPack"/>
 		<property name="build" value="${basedir}/class"/>
 		<property name="exec" value="${basedir}/jar"/>
 		
@@ -13,7 +14,10 @@
 			<mkdir dir="${build}"/>
 		</target>
 		<target name="compile" depends="initialisation" description="Source code compilation.">
-			<javac srcdir="${package}" destdir="${build}" debug="on" deprecation="on" optimize="off">
+			<javac srcdir="${packageXML}" destdir="${build}" debug="on" deprecation="on" optimize="off">
+			</javac>
+			
+			<javac srcdir="${packageCIDE}" destdir="${build}" debug="on" deprecation="on" optimize="off">
 			</javac>
 			
 			<javac srcdir="${src}" destdir="${build}" debug="on" deprecation="on" optimize="off">
